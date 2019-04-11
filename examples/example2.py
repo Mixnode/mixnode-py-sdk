@@ -24,7 +24,7 @@ import config
 
 try:
 	client = Mixnode(config.MIXNODE_CONFIG['api_key'])
-	query = "SELECT url from homepages LIMIT 10"
+	query = "SELECT url, title from homepages LIMIT 10"
 	client.setDebug(True)
 	response = client.execute(query)
 	print(response)

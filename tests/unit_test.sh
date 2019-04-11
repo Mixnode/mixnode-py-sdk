@@ -1,4 +1,5 @@
-# -*- coding: utf-8 -*-
+#!/usr/bin/env bash
+#
 # Mixnode Python SDK
 # Turn the web into a database
 # A fast, flexible and massively scalable platform to extract and analyze data from the web.
@@ -17,17 +18,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
-from mixnode import Mixnode
-from mixnode.error import MixnodeError
-import config 
-
-try:
-	client = Mixnode(config.MIXNODE_CONFIG['api_key'])
-	query = "SELECT url from homepages LIMIT 10"
-	client.setDebug(True)
-	response = client.execute(query)
-	print(response)
-
-except MixnodeError as err:
-    print(err)
+echo "Running unit tests on python2... " && python setup.py nosetests
+echo "Running unit tests on python3... " && python3 setup.py nosetests

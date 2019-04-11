@@ -24,7 +24,8 @@ import config
 
 try:
 	client = Mixnode(config.MIXNODE_CONFIG['api_key'])
-	query = "SELECT url from homepages LIMIT 10"
+	# Get WordPress websites that contain keywords such as 'bitcoin' and 'ethereum'
+	query = "select url_host from homepages where content like '%name=\"generator\" content=\"WordPress%' and content like '%bitcoin%' and content like '%ethereum%' LIMIT 10"
 	client.setDebug(True)
 	response = client.execute(query)
 	print(response)

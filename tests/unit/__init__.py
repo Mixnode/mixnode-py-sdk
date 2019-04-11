@@ -16,18 +16,3 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-
-from mixnode import Mixnode
-from mixnode.error import MixnodeError
-import config 
-
-try:
-	client = Mixnode(config.MIXNODE_CONFIG['api_key'])
-	query = "SELECT url from homepages LIMIT 10"
-	client.setDebug(True)
-	response = client.execute(query)
-	print(response)
-
-except MixnodeError as err:
-    print(err)
