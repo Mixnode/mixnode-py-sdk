@@ -24,7 +24,7 @@ Follow this tutorial to see a step-by-step guide and examples of how to use the 
 * Or, directly navigate to https://www.mixnode.com/account/api to find your API key.
 
 ### Authentication
-This SDK comes with basic authentication over HTTPS which requires you to pass your Mixnode API key using a config file or as a string during client instantiation. 
+This SDK comes with Basic Authentication over HTTPS which requires you to pass your Mixnode API key using a config file or as a string during client instantiation. 
 
 #### Basic Authentication
 
@@ -74,9 +74,7 @@ except MixnodeError as error:
 ```
 
 #### SDK debugging
-* Turning on the debug mode logs the HTTP requests being sent to the Mixnode API.
-* This is useful to verify if the queries being sent are correct.
-* This is useful to verify if the execution is in progress.
+Turning on the debug mode logs the HTTP requests being sent to the Mixnode API. This is useful to verify if the queries being sent are correct or to verify if query execution is in progress.
 
 ```Python
 # Setting debug to true logs the state of the application.
@@ -87,10 +85,6 @@ Mixnode("Your API Key").setDebug(True);
 
 ## Examples: Mixnode Python Client
 [Examples](https://github.com/Mixnode/mixnode-py-sdk/tree/master/examples)
-
-## SQL API Documentation
-
-You can get the full documentation for the API on the [Mixnode SQL API reference](https://www.mixnode.com/docs/sql-api/introduction)
 
 
 ## Support
