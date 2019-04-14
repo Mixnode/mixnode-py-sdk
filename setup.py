@@ -37,7 +37,7 @@ with open('mixnode/__init__.py', 'r') as fd:
     version = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]',
                         fd.read(), re.MULTILINE).group(1)
 
-with open('README.rst', 'r', 'utf-8') as f:
+with open('README.md', 'r', 'utf-8') as f:
     readme = f.read()
 
 packages = [
@@ -50,16 +50,16 @@ requires = [
 
 tests_requires = [
     'nose',
-    'mock',
-    'Faker',
+    'mock'
 ]
 
 setup(
     name='Mixnode',
-    description='Mixnode Python Library',
-    author='Mixnode, Inc.',
+    description='Mixnode Python SDK',
+    author='Mixnode Technologies Inc.',
     url='https://github.com/Mixnode/mixnode-py-sdk',
     download_url='https://github.com/Mixnode/mixnode-py-sdk',
+    author_email='devsteelcoder@gmail.com',
     version=version,
     package_dir={' mixnode': 'mixnode'},
     packages=packages,
@@ -73,9 +73,10 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
     long_description=readme,
-    package_data={'': ['LICENSE', 'README.rst']},
+    package_data={'': ['LICENSE', 'README.md']},
     include_package_data=True,
 )

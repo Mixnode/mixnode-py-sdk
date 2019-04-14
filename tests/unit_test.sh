@@ -18,5 +18,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-echo "Running unit tests on python2... " && python setup.py nosetests
-echo "Running unit tests on python3... " && python3 setup.py nosetests
+#echo "Running unit tests on python2... " && python2 setup.py nosetests
+#echo "Running unit tests on python3... " && python3 setup.py nosetests
+echo "Running unit tests on python... " && python setup.py nosetests
