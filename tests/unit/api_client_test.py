@@ -20,7 +20,7 @@
 
 import pytest
 import mock
-from nose.tools import raises, assert_is_not_none
+from nose.tools import raises, assert_is_not_none, assert_equal
 from unittest import TestCase
 
 from mixnode import Mixnode
@@ -29,8 +29,9 @@ from mixnode.error import ResponseError, MixnodeError
 from tests.assets import MixnodeData
 from tests.fixtures import ApiClientJsonData
 
+endpoint_url = 'https://api.mixnode.com'
 def mocked_requests_post(*args, **kwargs):
-    endpoint_url = 'https://api.mixnode.com'
+    
     class MockResponse:
         def __init__(self, json_data, status_code):
             self.json_data = json_data
@@ -50,10 +51,62 @@ def mocked_requests_post(*args, **kwargs):
     return MockResponse(None, 404)
 
 class ExecuteTest(TestCase):
+    def test_api_client_base_path(self):
+        client = Mixnode('XXXXX')
+        assert_equal(client._endpoint_url, endpoint_url)
+
+    @raises(MixnodeError)
+    def test_api_client_no_api_key_error(self):
+        client = Mixnode()
+
     @mock.patch('mixnode.api_client.requests.request', side_effect=mocked_requests_post)
-    def execute_should_provide_response(self, mock_get):
+    def test_execute_should_provide_response(self, mock_get):
         query = "SELECT * from homepages LIMIT 5"
         client = Mixnode('XXXXX')
         client.setDebug(True)
         response = client.execute(query)
-        assert_is_not_none(response)
+        assert_equal(response[0]['url'], ApiClientJsonData.data['dummyPage2Response']['rows'][0][0])
+        assert_equal(response[1]['url'], ApiClientJsonData.data['dummyPage2Response']['rows'][1][0])
+
+    def test_api_client_execute_is_defined(self):
+        query = "SELECT * from homepages LIMIT 5"
+        client = Mixnode('XXXXX')
+        assert_is_not_none(client.execute)
+
+    def test_api_client_debug(self):
+        query = "SELECT * from homepages LIMIT 5"
+        client = Mixnode('XXXXX')
+        assert_equal(client.isDebugMode, False)
+        client.setDebug(True)
+        assert_equal(client.isDebugMode, True)
+
+    def test_buildRequestParams_1(self):
+        query = "SELECT * from homepages LIMIT 5"
+        client = Mixnode('XXXXX')
+        path = '/path'
+        http_method = 'POST'
+        form_params = {'key1': 'value1'}
+        requestParams = client._buildRequestParams(path, http_method, form_params)
+        assert_equal(requestParams['uri'], endpoint_url+path)
+        assert_equal(requestParams['method'], http_method)
+        assert_equal(requestParams['form'], form_params)
+        assert_equal(requestParams['headers'], {})
+
+    def test_buildUrl(self):
+        path = '/path'
+        client = Mixnode('XXXXX')
+        full_path = client._buildUrl(path)
+        assert_equal(endpoint_url + path, full_path)
+
+    def test_buildrecords(self):
+        raw_response = {
+            "columns": [{
+                "name": 'col1'
+                }
+            ],
+            "rows": [['val1'], ['val2']]
+          }
+        client = Mixnode('XXXXX')
+        records = client._buildrecords(raw_response)
+        assert_equal(records[0]['col1'], "val1")
+        assert_equal(records[1]['col1'], "val2")
