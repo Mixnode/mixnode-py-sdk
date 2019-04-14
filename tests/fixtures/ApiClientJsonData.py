@@ -41,5 +41,11 @@ data = {
       }
     ],
     "rows": [['http://www.zzshhgcp.com/'], ['http://minecraft.zyczu.pl/']]
-  }
+  },
+  "dummyServerErrorResponse": {
+    "status": 'FINISHED',
+    "error_msg": 'Some Server Error',
+    "columns": [],
+    "rows": []
+  }  
 };

@@ -20,11 +20,15 @@
 
 # Standard python packages
 import requests
-from requests.auth import HTTPBasicAuth   
+from requests.auth import HTTPBasicAuth
+import time   
 
 
 # Internal imports
-from .error import (MixnodeError, ResponseError, MissingQuery, MissingApiKey)
+from .error import (MixnodeError, ResponseError, MissingQuery, MissingApiKey, ResponseServerError, GetError)
+
+# Delay in sending subsequent requests in seconds
+LAG = 2 
 
 class Mixnode(object):
     """
@@ -38,7 +42,7 @@ class Mixnode(object):
     """
     def __init__(self, api_key=None):
         
-        self._endpoint_url = 'https://api.mixnode.com'
+        self.endpointUrl = 'https://api.mixnode.com'
         if (api_key is None):
           raise MissingApiKey()
         self.credentials = {
@@ -46,6 +50,7 @@ class Mixnode(object):
         };
         self.isDebugMode = False
         self.response = []
+        self.lag = LAG
 
     def _buildRequestParams(self, path, http_method, form_params=None, skip_build_url=False):
         """
@@ -80,17 +85,25 @@ class Mixnode(object):
 
         :param path: query path which will be used in the URI.
         """
-        return self._endpoint_url + path
+        return self.endpointUrl + path
 
-    def setDebug(self, isDebug):
+    def setDebug(self, is_debug):
         """
         Enables debugging and logs the queries being sent to Mixnode Server
 
         :param path: isDebug <boolean>
         """
-        self.isDebugMode = isDebug
+        self.isDebugMode = is_debug
 
-    def execute(self, query, input_limit=None):
+    def setLag(self, time_in_secs):
+        """
+        Enables debugging and logs the queries being sent to Mixnode Server
+
+        :param path: isDebug <boolean>
+        """
+        self.lag = time_in_secs    
+
+    def execute(self, query=None, input_limit=None):
         """
         Interface exposing functionality to make calls to Mixnode server
 
@@ -175,9 +188,15 @@ class Mixnode(object):
             response = requests.request(request_params['method'], request_params['uri'], data=request_params['form'], auth=HTTPBasicAuth(self.credentials['api_key'],''))
             if response.status_code >= 400:
                  raise ResponseError(response)
-            payload = response.json()    
-            self.response = self.response + self._buildrecords(payload)
-            return payload
+            payload = response.json()
+
+            oError = GetError(payload['status'], payload.get('error_msg') and payload['error_msg']);
+
+            if oError:
+                raise ResponseServerError(oError)
+            else:    
+                self.response = self.response + self._buildrecords(payload)
+                time.sleep(self.lag)
+                return payload
         except MixnodeError as err:
             raise err
-     

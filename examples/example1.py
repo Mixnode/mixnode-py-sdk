@@ -26,7 +26,7 @@ try:
 	client = Mixnode(config.MIXNODE_CONFIG['api_key'])
 	query = "SELECT url from homepages LIMIT 10"
 	client.setDebug(True)
-	response = client.execute(query)
+	response = client.execute(query, 1073741829)
 	print(response)
 
 except MixnodeError as err:

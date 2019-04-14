@@ -26,7 +26,7 @@ try:
 	client = Mixnode(config.MIXNODE_CONFIG['api_key'])
 	# Get 10 higher education market websites that uses wordpress
 	query = "SELECT url_host from homepages  where content like '%name=\"generator\" content=\"WordPress%' and url_etld = 'edu' LIMIT 10"
-	client.setDebug(True)
+	#client.setDebug(True)
 	response = client.execute(query)
 	print(response)
 
