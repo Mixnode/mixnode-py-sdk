@@ -30,8 +30,8 @@ mixnode - Mixnode Python SDK
 
 __title__ = 'mixnode-py-sdk'
 __author__ = 'Mixnode'
-__version__ = '1.0.0-beta'
+__version__ = '1.0.0'
 __license__ = 'Apache 2.0'
 
 from .api_client import Mixnode
-from .error import (MixnodeError, KnownMixnodeError, ResponseError)
+from .error import (MixnodeError, KnownMixnodeError, ResponseError, ResponseServerError)

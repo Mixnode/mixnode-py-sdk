@@ -11,7 +11,7 @@ The Mixnode [Python](https://www.python.org/) SDK allows you to easily integrate
 
 ### Installation
 ```sh
-pip install mixnode-python-sdk
+pip install mixnode-py-sdk
 ```
 
 ## Tutorial
@@ -58,6 +58,7 @@ response = client.execute(query)
 ##### execute can accept upto two parameters : query, inputLimit (optional). 
 Please see various [Examples](https://github.com/Mixnode/mixnode-py-sdk/blob/master/examples) for usage details.
 ```Python
+from mixnode import Mixnode, MixnodeError
 try:
  response = Mixnode("Your API Key").execute(query)
  # Do something with response
@@ -65,6 +66,7 @@ except MixnodeError as error:
  # Do something with error
 ```
 ```Python
+from mixnode import Mixnode, MixnodeError
 try:
  # Fires a query and also sets the input limit on the data to be scanned
  response = Mixnode("Your API Key").execute(query, inputLimit)

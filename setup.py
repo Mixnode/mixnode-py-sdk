@@ -37,7 +37,7 @@ with open('mixnode/__init__.py', 'r') as fd:
     version = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]',
                         fd.read(), re.MULTILINE).group(1)
 
-with open('README.md', 'r', 'utf-8') as f:
+with open('README.rst', 'r', 'utf-8') as f:
     readme = f.read()
 
 packages = [
@@ -54,7 +54,7 @@ tests_requires = [
 ]
 
 setup(
-    name='Mixnode',
+    name='mixnode-py-sdk',
     description='Mixnode Python SDK',
     author='Mixnode Technologies Inc.',
     url='https://github.com/Mixnode/mixnode-py-sdk',
