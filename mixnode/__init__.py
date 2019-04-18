@@ -30,7 +30,7 @@ mixnode - Mixnode Python SDK
 
 __title__ = 'mixnode-py-sdk'
 __author__ = 'Mixnode'
-__version__ = '1.0.0'
+__version__ = '1.0.1'
 __license__ = 'Apache 2.0'
 
 from .api_client import Mixnode

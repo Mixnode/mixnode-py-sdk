@@ -44,11 +44,13 @@ Please see [Examples](https://github.com/Mixnode/mixnode-py-sdk/blob/master/exam
 
 ```Python
 
-from mixnode import Mixnode
-
-client = Mixnode("Your api key")
-query = "SELECT url, title from homepages LIMIT 10"
-response = client.execute(query)
+from mixnode import Mixnode, MixnodeError
+try:
+	query = "SELECT url, title from homepages LIMIT 10"
+	response = Mixnode("Your api key").execute(query)
+	print(response)
+except MixnodeError as error:
+	print(error)
 
 ```
 

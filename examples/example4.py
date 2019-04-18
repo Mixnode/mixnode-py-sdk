@@ -18,8 +18,7 @@
 # limitations under the License.
 
 
-from mixnode import Mixnode
-from mixnode.error import MixnodeError
+from mixnode import Mixnode, MixnodeError
 import config 
 
 try:

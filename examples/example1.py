@@ -18,9 +18,8 @@
 # limitations under the License.
 
 
-from mixnode import Mixnode
-from mixnode.error import MixnodeError
-import config 
+from mixnode import Mixnode, MixnodeError 
+import config
 
 try:
 	client = Mixnode(config.MIXNODE_CONFIG['api_key'])
