@@ -31,7 +31,7 @@ This SDK comes with Basic Authentication over HTTPS which requires you to pass y
 This type of token is given directly to the application.
 
 ``` Python
-import Mixnode
+from mixnode import Mixnode
 
 # Create an instance of the Mixnode Client
 client = Mixnode("Your API Key") #add your API KEY here; available at https://www.mixnode.com/account/api

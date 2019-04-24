@@ -22,7 +22,7 @@
 mixnode - Mixnode Python SDK
 ~~~~~~~~~~~~~~~~~~~~~
 
-   >>> import mixnode
+   >>> from mixnode import Mixnode
    >>> client = Mixnode('Your API Key')
 
 :license: Apache 2.0, see LICENSE for more details.
